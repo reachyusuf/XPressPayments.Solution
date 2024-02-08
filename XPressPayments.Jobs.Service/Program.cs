@@ -86,8 +86,30 @@ namespace XPressPayments.Jobs.Service
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-            RecurringJob.AddOrUpdate<IBackgroundJobService>("XPress-Pay-Jobs-SendDailyWelcomeEmail", x => x.SendDailyWelcomeEmail(), appSettings.SendDailyWelcomeEmailCronExpression, TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time"));
-            RecurringJob.AddOrUpdate<IBackgroundJobService>("XPress-Pay-Jobs-SendDailyReport", x => x.SendDailyReport(), appSettings.SendReportCronExpression, TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time"));
+            RecurringJob.AddOrUpdate<IBackgroundJobService>(
+            "XPress-Pay-Jobs-SendDailyWelcomeEmail",
+            x => x.SendDailyWelcomeEmail(),
+            appSettings.SendDailyWelcomeEmailCronExpression,
+            TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time")
+        ).RetryEvery(TimeSpan.FromMinutes(5)).OnException((exception, context) =>
+        {
+            Console.WriteLine($"Job failed: {exception.Message}. Retrying...");
+            // Log or handle the exception if needed
+        });
+
+            RecurringJob.AddOrUpdate<IBackgroundJobService>(
+            "XPress-Pay-Jobs-SendDailyWelcomeEmail",
+            x => x.SendDailyReport(),
+            appSettings.SendReportCronExpression,
+            TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time")
+        ).RetryEvery(TimeSpan.FromMinutes(5)).OnException((exception, context) =>
+        {
+            Console.WriteLine($"Job failed: {exception.Message}. Retrying...");
+            // Log or handle the exception if needed
+        });
+
+            //RecurringJob.AddOrUpdate<IBackgroundJobService>("XPress-Pay-Jobs-SendDailyWelcomeEmail", x => x.SendDailyWelcomeEmail(), appSettings.SendDailyWelcomeEmailCronExpression, TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time"));
+            //RecurringJob.AddOrUpdate<IBackgroundJobService>("XPress-Pay-Jobs-SendDailyReport", x => x.SendDailyReport(), appSettings.SendReportCronExpression, TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time"));
 
             app.Run();
         }
