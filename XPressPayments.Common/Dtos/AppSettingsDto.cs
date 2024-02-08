@@ -8,6 +8,9 @@
 
         public Jwt Jwt { get; set; }
         public Seq Seq { get; set; }
+
+        public RateLimit RateLimit { get; set; }
+
     }
 
     public class Jwt
@@ -22,5 +25,11 @@
     {
         public string ServerUrl { get; set; }
         public string ApiKey { get; set; }
+    }
+
+    public class RateLimit
+    {
+        public int Minutes { get; set; }
+        public int Request { get; set; }
     }
 }

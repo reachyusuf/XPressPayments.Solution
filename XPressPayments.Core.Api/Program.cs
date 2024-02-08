@@ -7,6 +7,7 @@ using XPressPayments.Business.Implementations;
 using XPressPayments.Business.Interfaces;
 using XPressPayments.Common.Dtos;
 using XPressPayments.Common.Dtos.AuthService;
+using XPressPayments.Core.Api.Middlewares;
 using XPressPayments.Data.Dapper;
 using XPressPayments.Data.Dapper.Interface;
 using XPressPayments.Data.DataAccess;
@@ -63,6 +64,8 @@ namespace XPressPayments.Core.Api
             builder.Services.AddScoped<IJobService, JobService>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddMemoryCache();
+
             //--
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(appSettings.DBConnectionString));
             builder.Services.AddIdentity<UserInfo, Role>(options =>
@@ -84,6 +87,9 @@ namespace XPressPayments.Core.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            //--register middlewares
+            app.UseMiddleware<RateLimitMiddleware>(TimeSpan.FromMinutes(appSettings.RateLimit.Minutes), appSettings.RateLimit.Request); // Example: 100 requests per minute
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
