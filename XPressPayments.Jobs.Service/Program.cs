@@ -98,7 +98,7 @@ namespace XPressPayments.Jobs.Service
         });
 
             RecurringJob.AddOrUpdate<IBackgroundJobService>(
-            "XPress-Pay-Jobs-SendDailyWelcomeEmail",
+            "XPress-Pay-Jobs-SendDailyReport",
             x => x.SendDailyReport(),
             appSettings.SendReportCronExpression,
             TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time")
