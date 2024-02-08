@@ -191,6 +191,31 @@ namespace XPressPayments.Data.EFRepository
             return await query.ToListAsync();
         }
 
+        public IQueryable<T> FindAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+     string includeProperties = "", bool? asNoTracking = true)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (asNoTracking is true) query = query.AsNoTracking();
+            if (filter is not null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy is not null)
+            {
+                query = orderBy(query);
+            }
+            if (string.IsNullOrEmpty(includeProperties) is false)
+            {
+                foreach (string includeProperty in includeProperties.Split
+           (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return query;
+        }
+
         public IQueryable<T> Query()
         {
             return _context.Set<T>().AsQueryable();

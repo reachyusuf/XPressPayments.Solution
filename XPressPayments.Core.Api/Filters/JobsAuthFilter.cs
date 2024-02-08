@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using XPressPayments.Core.Api.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using XPressPayments.Common.Dtos;
 
 namespace XPressPayments.Core.Api.Filters
 {

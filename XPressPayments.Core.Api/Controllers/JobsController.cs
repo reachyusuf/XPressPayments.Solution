@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using XPressPayments.Business.Interfaces;
 using XPressPayments.Core.Api.Filters;
-using XPressPayments.Core.Api.Services.Interface;
 
 namespace XPressPayments.Core.Api.Controllers
 {

@@ -4,12 +4,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using XPressPayments.Auth.Service.Services.Interface;
+using XPressPayments.Business.Interfaces;
 using XPressPayments.Common.Dtos;
 using XPressPayments.Common.Dtos.AuthService;
 using XPressPayments.Data.Entities;
 
-namespace XPressPayments.Auth.Service.Services
+namespace XPressPayments.Business.Implementations
 {
     public class AuthService : IAuthService
     {
@@ -39,16 +39,16 @@ namespace XPressPayments.Auth.Service.Services
                 return OperationResult<bool>.ReturnBadRequest(messages: errMsg);
             }
 
-            return OperationResult<bool>.ReturnSuccess(true ,"Registration successful");
+            return OperationResult<bool>.ReturnSuccess(true, "Registration successful");
         }
 
         public async Task<OperationResult<LoginResponseDto>> Login(LoginDto model)
         {
             LoginResponseDto response = null;
             var _authResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, true);
-            if (_authResult?.IsLockedOut is true) 
+            if (_authResult?.IsLockedOut is true)
                 return OperationResult<LoginResponseDto>.ReturnBadRequest("Sorry! account is locked due to repeated failed login attempts");
-            else if (_authResult?.Succeeded is false) 
+            else if (_authResult?.Succeeded is false)
                 return OperationResult<LoginResponseDto>.ReturnBadRequest("Invalid Phone No or password");
 
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -84,4 +84,5 @@ namespace XPressPayments.Auth.Service.Services
             return authResponseModel;
         }
     }
+
 }

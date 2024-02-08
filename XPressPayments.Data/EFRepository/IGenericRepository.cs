@@ -22,6 +22,8 @@ namespace XPressPayments.Data.EFRepository
         Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
         Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int? page = null, int? pageSize = null, string includeProperties = "");
+        IQueryable<T> FindAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+     string includeProperties = "", bool? asNoTracking = true);
         IQueryable<T> Query();
         Task<int> CountWithFilter(Expression<Func<T, bool>> filter = null);
         Task<decimal> SumWithFilter(Expression<Func<T, decimal>> column, Expression<Func<T, bool>> filter = null);
