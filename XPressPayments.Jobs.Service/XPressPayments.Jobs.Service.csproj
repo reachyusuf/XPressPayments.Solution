@@ -10,7 +10,7 @@
 		<PackageReference Include="Hangfire.AspNetCore" Version="1.7.34" />
 		<PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
 		<PackageReference Include="Hangfire.SqlServer" Version="1.7.34" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.16" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

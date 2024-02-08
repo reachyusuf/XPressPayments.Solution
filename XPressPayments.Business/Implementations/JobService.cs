@@ -1,7 +1,7 @@
-﻿using XPressPayments.Common.Dtos;
-using XPressPayments.Core.Api.Services.Interface;
+﻿using XPressPayments.Business.Interfaces;
+using XPressPayments.Common.Dtos;
 
-namespace XPressPayments.Core.Api.Services
+namespace XPressPayments.Business.Implementations
 {
     public class JobService : IJobService
     {
@@ -15,4 +15,5 @@ namespace XPressPayments.Core.Api.Services
             throw new NotImplementedException();
         }
     }
+
 }

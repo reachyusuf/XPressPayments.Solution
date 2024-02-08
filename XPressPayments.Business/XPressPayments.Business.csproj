@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\XPressPayments.Common\XPressPayments.Common.csproj" />
+    <ProjectReference Include="..\XPressPayments.Data\XPressPayments.Data.csproj" />
+  </ItemGroup>
+
 </Project>

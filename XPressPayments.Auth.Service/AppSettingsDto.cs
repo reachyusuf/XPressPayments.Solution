@@ -3,6 +3,7 @@
     public class AppSettingsDto
     {
         public string AppName { get; set; }
+        public string DBConnectionString { get; set; }
 
 
         public Jwt Jwt { get; set; }
